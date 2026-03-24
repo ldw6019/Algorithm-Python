@@ -4,31 +4,41 @@
 [분류] 자료 구조, 큐
 [난이도] Silver 3 Tier
 """
-
-# 입력 속도 최적화
 import sys
-input = sys.stdin.readline
 from collections import deque
 
+input = sys.stdin.readline
+
 def solve():
-    x = int(input())
-    for _ in range(x):
-        n, m = map(int(input()).split)
+    n, m = map(int, input().split())
+    # 중요도만 담긴 큐
+    queue = deque(list(map(int, input().split())))
     
+    count = 0
+    while queue:
+        # 1. 가장 앞의 중요도 확인
+        current = queue.popleft()
+        
+        # 2. 현재 문서보다 높은 중요도가 있는지 확인
+        if any(current < item for item in queue):
+            # 더 높은게 있다면 뒤로 보냄
+            queue.append(current)
+            
+            # 여기서 핵심! M의 위치를 조정합니다.
+            if m == 0:
+                m = len(queue) - 1 # 맨 앞으로 왔던 내 문서가 맨 뒤로 감
+            else:
+                m -= 1 # 내 문서가 한 칸 앞으로 당겨짐
+        else:
+            # 3. 인쇄하기
+            count += 1
+            if m == 0: # 지금 인쇄하는게 내가 찾던 문서라면
+                print(count)
+                break
+            else:
+                m -= 1 # 내 문서가 한 칸 앞으로 당겨짐
 
-
-    '''
-1. 테스트 케이스 수만큼 반복
-2. N, M과 중요도 리스트를 입력받음
-3. 큐에 (중요도, 원래_인덱스) 형태로 저장
-4. 인쇄 횟수 count = 0
-5. 큐가 빌 때까지 반복:
-    - 현재 맨 앞 문서가 큐 안에서 중요도가 가장 높은가?
-    - YES: 
-        - 인쇄한다 (count + 1)
-        - 만약 이 문서의 인덱스가 M이라면? -> count 출력 후 종료
-    - NO:
-        - 맨 앞 문서를 꺼내서 맨 뒤로 다시 넣는다'''
-    
 if __name__ == "__main__":
-    solve()
+    t = int(input())
+    for _ in range(t):
+        solve()
