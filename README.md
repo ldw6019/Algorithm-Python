@@ -1,7 +1,9 @@
 # 🏆 Algorithm Solutions
+
 > Python을 이용한 백준(BOJ) 문제 풀이 기록입니다.
 
 ## 📌 Directory Structure
+
 * **그래프**: 최단 경로, 최소 신장 트리 등
 * **그리디 알고리즘**: 탐욕법을 이용한 최적해 구하기
 * **BFS와 DFS**: 너비/깊이 우선 탐색 활용
@@ -13,12 +15,14 @@
 ---
 
 ## 🛠 Naming Convention
+
 * 파일명 규칙: `BOJ_[문제번호]_[문제명]_[티어].py`
 * 예시: `BOJ_7576_토마토_G5.py`
 
 ---
 
-# 🏆 Algorithm Solutions
+# 🏆 Solved.ac
+
 ![Solved.ac 프로필](https://mazassumnida.wtf/api/v2/generate_badge?boj=everhuik)
 
 ---
