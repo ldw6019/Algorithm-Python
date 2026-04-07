@@ -41,7 +41,7 @@ def solve():
             # 현재까지의 최댓값과 비교해서 더 큰 값을 저장
             if value > maxdays:
                 maxdays = value
-    print(max_days - 1)
+    print(maxday - 1)
 
 if __name__ == "__main__":
     solve()
