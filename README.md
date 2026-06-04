@@ -18,10 +18,20 @@
 
 * 파일명 규칙: `BOJ_[문제번호]_[문제명]_[티어].py`
 * 예시: `BOJ_7576_토마토_G5.py`
+* 상단 템플릿 예시:
+
+```python
+"""
+[문제] 백준 1074번 - Z
+[링크] [https://www.acmicpc.net/problem/1074](https://www.acmicpc.net/problem/1074)
+[분류] 분할 정복, 재귀
+[난이도] Gold 5 Tier
+"""
+```
 
 ---
 
-# 🏆 Solved.ac
+## 🏆 Solved.ac
 
 ![Solved.ac 프로필](https://mazassumnida.wtf/api/v2/generate_badge?boj=everhuik)
 
