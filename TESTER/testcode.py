@@ -1,37 +1,55 @@
-import sys
+input_data = """7 12
+1 2 3
+1 3 2
+3 2 1
+2 5 2
+3 4 4
+7 3 6
+5 1 5
+1 6 2
+6 4 1
+6 5 3
+4 5 3
+6 7 4
+"""
 
-def solve():
-    # 문자열을 입력받고 양끝 공백/개행문자 제거
-    s = sys.stdin.readline().strip()
-    
-    # 입력이 비어있을 경우를 대비한 방어 코드
-    if not s:
-        return
+lines = input_data.strip().split('\n')
 
-    total = 0
-    x_index = -1
+n, m = map(int, lines[0].split())
+edges = []
+parent = [i for i in range(n)]  # 1,2,3 노드를 -> 0,1,2로 저장할 예정
 
-    # 1. 'x'의 위치를 찾고 나머지 숫자들의 가중치 합 구하기
-    for i in range(13):
-        if s[i] == 'x':
-            x_index = i
-        else:
-            digit = int(s[i])
-            # 1, 3, 1, 3... 순서로 곱해짐 (인덱스 0, 1, 2, 3...)
-            if i % 2 == 0:
-                total += digit * 1
-            else:
-                total += digit * 3
-                
-    # 2. 'x' 자리에 0~9를 대입하며 체크섬 확인
-    # x가 위치한 인덱스의 가중치 결정
-    multiplier = 1 if x_index % 2 == 0 else 3
-    
-    for num in range(10):
-        # (기존 합 + x에 의한 합)이 10의 배수인지 확인
-        if (total + (num * multiplier)) % 10 == 0:
-            print(num)
-            break
+line_idx = 1
+for _ in range(m):
+    a, b, w = map(int, lines[line_idx].split())
+    line_idx += 1
+    edges.append((w, a - 1, b - 1))  # 1,2,3 노드를 -> 0,1,2로 저장할 예정
 
-if __name__ == "__main__":
-    solve() 
+def find(x):
+    if parent[x] == x:
+        return x
+    parent[x] = find(parent[x])  # find 거슬러 올라가면서 parent[x] 값도 갱신
+    return parent[x]
+
+def union(a, b):
+    a = find(a)
+    b = find(b)
+    if a < b:  # 작은 쪽을 부모로 통일
+        parent[b] = a
+    else:
+        parent[a] = b
+
+edges.sort(key=lambda x: x[0])  # 0번째 인덱스에 있는 w(가중치) 기준으로 오름차순 정렬
+cnt = 0  # 연결한 엣지수
+i = 0
+cost = 0  # 총 비용
+
+while cnt < n - 2:  # n-1 하면 모든 노드가 연결된다.
+    w, a, b = edges[i][0], edges[i][1], edges[i][2]
+    if find(a) != find(b):
+        cnt += 1
+        cost += w
+        union(a, b)
+    i += 1
+
+print(cost)
